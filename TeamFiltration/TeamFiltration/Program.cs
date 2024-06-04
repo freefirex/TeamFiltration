@@ -33,6 +33,7 @@ namespace TeamFiltration
             Console.WriteLine("         --owa                 Exfiltrate information from the Outlook REST API (The last 2k emails, both sent and received) ");
             Console.WriteLine("               --owa-limit          Set the max amount of emails to exfiltrate, default is 2k.");
             Console.WriteLine("         --jwt-tokens          Dump all gathered JSON formated JTW-tokens for SSO resources (MsGraph,AdGraph, Outlook, SharePoint, OneDrive, Teams)\n");
+            Console.WriteLine("         --us-cloud            Force login endpoint for US Tenants (https://login.microsoftonline.us/)\n");
 
             Console.WriteLine("   --spray       Load the spraying module\n");
             Console.WriteLine("         --aad-sso             Use SecureWorks's Azure Active Directory password brute-forcing technique when spraying");
@@ -60,6 +61,7 @@ namespace TeamFiltration
             Console.WriteLine("   --enum        Load the enumeration module\n");
             Console.WriteLine("         --domain              Domain to perfom enumeration against, names pulled from statistically-likely-usernames if not provided with --usernames");
             Console.WriteLine("         --usernames           Path to a list of usernames to enumerate (emails)");
+            Console.WriteLine("         --us-cloud            Force login endpoint for US Tenants (https://login.microsoftonline.us/)\n");
             Console.WriteLine("         --tenant-info         Enumerates tenant and domain information (Based on Invoke-AADIntReconAsOutsider from AADInternal)");
             Console.WriteLine("         --dehashed            Use the dehashed submodule in order to enumerate emails from a basedomain");
             Console.WriteLine("         --validate-msol       Validate that the given o365 accounts exists using the public GetCredentialType method (Very RateLimited - Slow 20 e/s)");
@@ -120,7 +122,7 @@ namespace TeamFiltration
 ";
 
             Console.WriteLine(asci);
-            Console.WriteLine("[♥] TeamFiltration V3.5.4 PUBLIC, created by @Flangvik at @TrustedSec");
+            Console.WriteLine("[♥] TeamFiltration V3.5.5 PUBLIC, created by @Flangvik at @TrustedSec");
             Console.WriteLine($"[+] Args parsed {string.Join(' ', args)}");
 
 

@@ -423,6 +423,13 @@ namespace TeamFiltration.Modules
 
                 if (options.ValidateAccsO365)
                 {
+                    if (_globalProperties.UsCloud)
+                    {
+                        _databaseHandle.WriteLog(new Log("ENUM",
+                            "Unable to use msol method when targeting UsCloud accounts"));
+                        return;
+                    }
+                    
                     var approcTime = (int)Math.Round(TimeSpan.FromSeconds((double)userListData.Count() / 50).TotalMinutes);
 
                     _databaseHandle.WriteLog(new Log("ENUM", $"Warning, this method may give some false positive accounts", ""));
@@ -464,6 +471,12 @@ namespace TeamFiltration.Modules
                 }
                 else if (options.ValidateAccsTeams)
                 {
+                    if (_globalProperties.UsCloud)
+                    {
+                        _databaseHandle.WriteLog(new Log("ENUM", "Unable to use teams method when targeting Us Cloud accounts"));
+                        return;
+                    }
+                    
                     if (Helpers.Generic.IsValidEmail(_globalProperties?.TeamFiltrationConfig?.SacrificialO365Username) && !string.IsNullOrEmpty(_globalProperties?.TeamFiltrationConfig?.SacrificialO365Passwords))
                     {
                         var approcTime = (int)Math.Round(TimeSpan.FromSeconds(((double)userListData.Count() / 300)).TotalMinutes);
@@ -549,7 +562,7 @@ namespace TeamFiltration.Modules
 
 
                     (Amazon.APIGateway.Model.CreateDeploymentRequest, Models.AWS.FireProxEndpoint, string fireProxUrl) enumUserUrl
-                        = _globalProperties.GetFireProxURLObject("https://login.microsoftonline.com", (new Random()).Next(0, _globalProperties.AWSRegions.Length));
+                        = _globalProperties.GetFireProxURLObject((_globalProperties.UsCloud) ? "https://login.microsoftonline.us" : "https://login.microsoftonline.com", (new Random()).Next(0, _globalProperties.AWSRegions.Length));
 
 
                     await userListData.ParallelForEachAsync(
